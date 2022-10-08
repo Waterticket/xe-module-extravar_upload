@@ -38,7 +38,7 @@ class Extravar_uploadController extends Extravar_upload
 				unset($temp_output);
 			}
 		}
-		if((Context::get('module') != 'admin') && !Context::get('act') && Context::get('document_srl'))
+		if((Context::get('module') != 'admin') && (!Context::get('act') || Context::get('act') == 'dispBoardContent') && Context::get('document_srl'))
 		{
 			$module_info = Context::get('module_info');
 			$module_srl = $module_info->module_srl;
