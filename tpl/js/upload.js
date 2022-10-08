@@ -97,7 +97,7 @@ jQuery(function(){
 			formData.append("target_extra", target_extra);
 			formData.append("module_mid", current_mid);
 			jQuery.ajax({
-				url: './index.php?mid=extravar_upload&act=insertFileExtraVar',
+				url: request_uri + 'index.php?mid=extravar_upload&act=insertFileExtraVar',
 				data: formData,
 				processData: false,
 				contentType: false,
