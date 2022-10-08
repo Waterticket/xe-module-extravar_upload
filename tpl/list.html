@@ -1,0 +1,86 @@
+<!--// HEADER -->
+<load target="css/config.css" />
+<include target="header.html" />
+
+<div>
+    <strong>Total</strong> {number_format($total_count)}, Page <strong>{number_format($page)}</strong>/{number_format($total_page)}
+</div>
+
+<table class="x_table x_table-striped x_table-hover">
+<thead>
+    <tr>
+        <th scope="col">{$lang->no}</th>
+		<th scope="col">모듈이름</th>
+		<th scope="col">확장변수</th>
+		<th scope="col">브라우저 제목</th>
+		<th scope="col">등록일</th>
+		<th scope="col">수정일</th>
+		<th scope="col">설정</th>
+		<th scope="col"></th>
+	</tr>
+</thead>
+<tbody class="tbody_ep">
+	<!--@foreach($data_list as $no => $val)-->
+	{@
+		$oModuleModel = &getModel('module');
+		$module_info = $oModuleModel->getModuleInfoByModuleSrl($val->target_module_srl);
+		$module_name = $module_info->mid;
+		$browser_title = $module_info->browser_title;
+	}
+    <tr>
+        <td>{$no}</td>
+		<td>{$module_name}</td>
+		<td>{$val->target_extra} 번째</td>
+		<td><a target="_blank" href="{getUrl('','mid',$module_name)}">{$browser_title}</a></td>
+		<td>{zdate($val->regdate, 'Y-m-d H:i:s')}</td>
+        <td>{zdate($val->last_update, 'Y-m-d H:i:s')}</td>
+		<td><a href="{getUrl('act', 'dispExtravar_uploadAdminModify', 'extravar_srl', $val->extravar_srl)}"><img src="./tpl/img/settings-work-tool.png"></a></td>
+		<td class="tdd"><input id="delete_reg" onclick="delete_reg({$val->extravar_srl})" type="button" name="cart" value="삭제"/></td>
+	</tr>
+	<!--@end-->
+	<!--@if(!$data_list)-->
+	<tr>
+		<td>등록된 자료가 없습니다.</td>
+	</tr>
+	<!--@end-->
+</tbody>
+</table>
+
+<div class="pagination a1">
+    <a href="{getUrl('page','','module_srl','')}" class="prevEnd">{$lang->first_page}</a> 
+    <!--@while($page_no = $page_navigation->getNextPage())-->
+        <!--@if($page == $page_no)-->
+            <strong>{$page_no}</strong> 
+        <!--@else-->
+            <a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a> 
+        <!--@end-->
+    <!--@end-->
+    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="nextEnd">{$lang->last_page}</a>
+</div>
+
+<div class="x_btn-group x_pull-right">
+	<a href="{getUrl('act', 'dispExtravar_uploadAdminInsert')}" class="x_btn x_btn-inverse">{$lang->cmd_registration}</a>
+	<!-- <input class="x_btn" type="button" onclick="delete_reg()" value="{$lang->cmd_delete}"> -->
+	<!-- <button type="submit" class="x_btn">{$lang->cmd_delete}</button> -->
+</div>
+
+<script>
+delete_reg = function(data){
+	if (confirm("정말 삭제하시겠습니까?") == true){
+		var params = {
+			'extravar_srl' : data,
+			};
+		exec_json('extravar_upload.procExtravar_uploadAdminDelete',params,function(data){
+			var message = data.message;
+			if(message != 'success') {
+				alert(message);
+				return false;
+			}else{
+				location.reload();
+				};
+		});
+	}else{
+		return false;
+	};
+}
+</script>

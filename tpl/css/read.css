@@ -1,0 +1,17 @@
+.extra-imge{
+	display:inline;
+}
+.extra-imge img{
+	margin:2px;
+	border:1px solid #DDD;
+}
+.extra-binary img{
+	vertical-align: middle;
+    height: 15px;
+    width: auto;
+}
+.extra-binary a{
+	vertical-align: middle;
+	text-decoration: none;
+	color: #585858;
+}

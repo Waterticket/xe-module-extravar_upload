@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">확장변수업로드</title>
+	<description xml:lang="ko">확장변수로 파일을 업로드 가능하게 해줍니다.</description>
+	<version>1.0.6</version>
+	<date>2022-05-12</date>
+	<author email_address="admin@otocin.dev" link="https://otocin.dev">
+		<name xml:lang="ko">오토씽</name>
+	</author>
+</module>

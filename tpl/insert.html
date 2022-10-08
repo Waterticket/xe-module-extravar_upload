@@ -1,0 +1,157 @@
+<!--// HEADER -->
+<load target="css/config.css" />
+<include target="header.html" />
+
+<form class="x_form-horizontal" action="./" method="post" id="extravar_upload">
+	<input type="hidden" name="module" value="extravar_upload" />
+	<input type="hidden" name="act" value="procExtravar_uploadAdminInsert" />
+	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+	<input type="hidden" name="xe_validator_id" value="modules/extra_var_upload/tpl/config/1" />
+	
+	<div class="message {$XE_VALIDATOR_MESSAGE_TYPE}" cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/extra_var_upload/tpl/config/1'">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+	
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label" for="use">{$lang->cmd_use}</label>
+			<div class="x_controls">
+				<select name="use" id="use">
+					<option value="N" selected="selected"/>{$lang->cmd_no}</option>
+					<option value="Y" selected="selected"/>{$lang->cmd_yes}</option>
+				</select>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>{$lang->target}</h1>
+		<div class="x_control-group">
+			<label for="module_srl" class="x_control-label">게시판 선택</label>
+			<div class="x_controls">
+				<select name="module_srl" id="module_srl">
+					<option loop="$module_list => $item" value="{$item->module_srl}">{$item->browser_title} ({$item->mid})</option>
+				</select>
+				<input onclick="SelectExtraKey()" type="button" value="선택" />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">확장변수 선택</label>
+			<div class="x_controls">
+				<select name="extra_idx" id="extra_idx">
+				</select>
+				<input onclick="AddExtraKey()" type="button" value="추가" />
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">선택된 대상</label>
+			<div class="x_controls" id="target_list">
+				<select id="target_list" size="5" multiple="multiple"></select>
+				<input style="display:block;" onclick="SelectRemove()" type="button" value="삭제" />
+			</div>
+		</div>
+		<div class="desc">*매우 중요* 사용자정의 확장변수 만들때 반드시 / 단일 선택(single select) / 필수항목 Y / 기본값은 앞뒤로 %를 넣어서 만들어 주시기 바랍니다.(예 : %extra_var1%)<br><br>*썸네일 설정은 등록후 설정에서 하실수 있습니다.</div>
+	</section>
+	<section class="section limit_config">
+		<h1>설정</h1>
+	</section>
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label">파일갯수제한</label>
+			<div class="x_controls">
+				<input type="number" id="limit_count" name="limit_count" value="{$config->limit_count}" />
+				<label>숫자만 입력(미입력시 제한없음)</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">파일용량제한</label>
+			<div class="x_controls">
+				<input type="number" id="limit_size" name="limit_size" value="{$config->limit_size}" />
+				<label>숫자만 입력(MB 단위 / 미입력시 제한없음)</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">이미지 사이즈(가로)</label>
+			<div class="x_controls">
+				<input type="text" id="img_size_width" name="img_size_width" value="{$config->img_size_width}" />
+				<label>px % 등 단위까지 입력해주세요(미입력시 auto)</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">이미지 사이즈(세로)</label>
+			<div class="x_controls">
+				<input type="text" id="img_size_height" name="img_size_height" value="{$config->img_size_height}" />
+				<label>px % 등 단위까지 입력해주세요(미입력시 auto)</label>
+			</div>
+		</div>
+	</section>
+	<div class="btnArea x_clearfix">
+		<button type="submit" class="x_btn x_btn-primary x_pull-right">{$lang->cmd_registration}</button>
+	</div>
+	
+</form>
+
+<script>
+SelectExtraKey = function(){
+	jQuery('select[name=extra_idx]').html('');
+	var module_srl = jQuery('select[name=module_srl]').val();
+	var params = {
+	'module_srl' : module_srl,
+	};
+	exec_json('extravar_upload.procExtravar_uploadAdminGetExtraKeys',params,function(data) {
+		var message = data.message;
+		if(message != 'success') {
+			alert(message);
+			return false;
+		}else{
+			jQuery.each(data.file_srl, function(idx, item){
+				jQuery('select[name=extra_idx]').append('<option default_value="'+item.default+'" is_required_value="'+item.is_required+'"type_value="'+item.type+'" value="'+item.idx+'">'+item.name+'</option>');
+			});
+		}
+	});
+};
+
+AddExtraKey = function(){
+	var idx = jQuery('select#extra_idx option:selected').val();
+	if(!idx){
+		alert('확장변수가 선택 되지 않았습니다.');
+		return false;
+	}
+	var def = jQuery('select#extra_idx option:selected').attr('default_value');
+	if(!/^%.+?%$/i.test(def)) {
+		alert('기본값 형식이 잘못 되었습니다.!');
+		return false;	
+	}
+	var required = jQuery('select#extra_idx option:selected').attr('is_required_value');
+	if(required != 'Y'){
+		alert('필수항목이 Y가 아닙니다!');
+		return false;	
+	}
+	var sel = jQuery('select#extra_idx option:selected').attr('type_value');
+	if(sel != 'select'){
+		alert('확장변수가 Select 타입이 아닙니다!');
+		return false;	
+	}
+	var txt = jQuery('select#extra_idx option:selected').text();
+	var m_srl = jQuery('select[name=module_srl] option:selected').val();
+	var board_name = jQuery('select[name=module_srl] option:selected').text();
+	var svalue = m_srl+','+idx;
+	
+	var target_list = new Array();
+	
+	jQuery('input[id=target_list]').each(function(i,item){
+		target_list.push(jQuery(this).val());
+	});
+	if(target_list.indexOf(svalue) != -1){
+		alert('이미 선택된 대상입니다.');
+		return false;
+	};
+	jQuery('div[id=target_list]').prepend('<input type="hidden" name="target_list[]" id="target_list" value="'+svalue+'" />');
+	jQuery('select#target_list').append('<option value="'+svalue+'">'+board_name+' > '+txt+'</option>');
+};
+
+SelectRemove = function(){
+	var remove_v = jQuery('select#target_list option:selected').val();
+	jQuery('input[id=target_list][value="'+remove_v+'"]').remove();
+	jQuery('select#target_list option:selected').remove();
+}
+</script>

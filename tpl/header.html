@@ -1,0 +1,20 @@
+<div class="x_page-header">
+	<h1>
+		{$lang->cmd_extravar_upload}
+	</h1>
+</div>
+
+<ul class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act == 'dispExtravar_uploadAdminList'">
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispExtravar_uploadAdminList', 'page', $page)}">{$lang->cmd_extravar_upload_list}</a>
+	</li>
+	<li cond="$act == 'dispExtravar_uploadAdminInsert'" class="x_active">
+		<a onclick="return false;" href="{getUrl('', 'module', 'admin', 'act', 'dispExtravar_uploadAdminInsert', 'page', $page)}">{$lang->cmd_extravar_upload_register}</a>
+	</li>
+	<li cond="$act == 'dispExtravar_uploadAdminModify'" class="x_active">
+		<a onclick="return false;" href="{getUrl('', 'module', 'admin', 'act', 'dispExtravar_uploadAdminModify', 'page', $page)}">{$lang->cmd_extravar_upload_modify}</a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispExtravar_uploadAdminFilesList'">
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispExtravar_uploadAdminFilesList', 'page', $page)}">{$lang->cmd_extravar_upload_file_list}</a>
+	</li>
+</ul>

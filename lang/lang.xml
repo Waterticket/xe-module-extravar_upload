@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<item name="cmd_extravar_upload">
+		<value xml:lang="ko"><![CDATA[확장변수업로드]]></value>
+	</item>
+	<item name="cmd_use">
+		<value xml:lang="ko"><![CDATA[사용]]></value>
+	</item>
+	<item name="cmd_limit_config">
+		<value xml:lang="ko"><![CDATA[제한설정]]></value>
+	</item>
+	<item name="cmd_extravar_upload_list">
+		<value xml:lang="ko"><![CDATA[확장변수업로드 목록]]></value>
+	</item>
+	<item name="cmd_extravar_upload_info">
+		<value xml:lang="ko"><![CDATA[확장변수업로드 정보]]></value>
+	</item>
+	<item name="cmd_extravar_upload_register">
+		<value xml:lang="ko"><![CDATA[확장변수업로드 등록]]></value>
+	</item>
+	<item name="cmd_extravar_upload_modify">
+		<value xml:lang="ko"><![CDATA[확장변수업로드 수정]]></value>
+	</item>
+	<item name="cmd_extravar_upload_config_cover">
+		<value xml:lang="ko"><![CDATA[커버 이미지 설정]]></value>
+	</item>
+	<item name="cmd_extravar_upload_file_list">
+		<value xml:lang="ko"><![CDATA[파일 목록]]></value>
+	</item>
+	<item name="is_valid">
+		<value xml:lang="ko"><![CDATA[유효]]></value>
+	</item>
+	<item name="is_stand_by">
+		<value xml:lang="ko"><![CDATA[대기]]></value>
+	</item>
+	<item name="file_size">
+		<value xml:lang="ko"><![CDATA[파일용량]]></value>
+	</item>	
+</lang>

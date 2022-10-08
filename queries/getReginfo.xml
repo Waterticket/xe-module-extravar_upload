@@ -1,0 +1,9 @@
+<query id="getReginfo" action="select">
+    <tables>
+        <table name="extravar_upload_reg_info" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="target_module_srl" var="target_module_srl" filter="number" notnull="notnull" />
+		<condition operation="equal" column="target_extra" var="target_extra" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

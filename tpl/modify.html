@@ -1,0 +1,99 @@
+<!--// HEADER -->
+<load target="css/config.css" />
+<include target="header.html" />
+
+<form class="x_form-horizontal" action="./" method="post" id="extravar_upload">
+	<input type="hidden" name="module" value="extravar_upload" />
+	<input type="hidden" name="extravar_srl" value="{$data->extravar_srl}" />
+	<input type="hidden" name="target_module_srl" value="{$data->target_module_srl}" />
+	<input type="hidden" name="act" value="procExtravar_uploadAdminModify" />
+	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+	<input type="hidden" name="xe_validator_id" value="modules/extra_var_upload/tpl/config/1" />
+	
+	<div class="message {$XE_VALIDATOR_MESSAGE_TYPE}" cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/extra_var_upload/tpl/config/1'">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+	
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label" for="use">{$lang->cmd_use}</label>
+			<div class="x_controls">
+				<select name="use" id="use">
+					<option value="Y" selected="selected"|cond="$data->use !== 'N'" />{$lang->cmd_yes}</option>
+					<option value="N" selected="selected"|cond="$data->use === 'N'" />{$lang->cmd_no}</option>
+				</select>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<h1>{$lang->target}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">게시판 : </label>
+			<span  style="margin: 0 0 0 10px;vertical-align: -webkit-baseline-middle;">{$module_mid}</span>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">확장변수 : </label>
+			<span  style="margin: 0 0 0 10px;vertical-align: -webkit-baseline-middle;">{$data->target_extra} 번째</span>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="use_cover">썸네일로 사용</label>
+			<div class="x_controls">
+				<select name="use_cover" id="use_cover">
+					<option value="Y" selected="selected"|cond="$data->use_cover !== 'N'" />{$lang->cmd_yes}</option>
+					<option value="N" selected="selected"|cond="$data->use_cover === 'N'" />{$lang->cmd_no}</option>
+				</select>
+				<label>이 확장 변수를 리스트에서 썸네일로 사용합니다.<br>(스킨 수정 필수 / 수정법은 포함된 readme.txt 파일)</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="cover_size_width">썸네일 사이즈(가로)</label>
+			<div class="x_controls">
+				<input type="text" id="cover_size_width" name="cover_size_width" value="{$data->cover_size_width}" />
+				<label>px % 등 단위까지 입력해주세요(미입력시 auto)</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label" for="cover_size_height">썸네일 사이즈(세로)</label>
+			<div class="x_controls">
+				<input type="text" id="cover_size_height" name="cover_size_height" value="{$data->cover_size_height}" />
+				<label>px % 등 단위까지 입력해주세요(미입력시 auto)</label>
+			</div>
+		</div>
+	</section>
+	<section class="section limit_config">
+		<h1>설정</h1>
+	</section>
+	<section class="section">
+		<div class="x_control-group">
+			<label class="x_control-label">파일갯수제한</label>
+			<div class="x_controls">
+				<input type="number" id="limit_count" name="limit_count" value="{$data->limit_count}" />
+				<label>숫자만 입력(미입력시 제한없음)</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">파일용량제한</label>
+			<div class="x_controls">
+				<input type="number" id="limit_size" name="limit_size" value="{$data->limit_size}" />
+				<label>숫자만 입력(MB 단위 / 미입력시 제한없음)</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">이미지 사이즈(가로)</label>
+			<div class="x_controls">
+				<input type="text" id="img_size_width" name="img_size_width" value="{$data->img_size_width}" />
+				<label>px % 등 단위까지 입력해주세요(미입력시 auto)</label>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">이미지 사이즈(세로)</label>
+			<div class="x_controls">
+				<input type="text" id="img_size_height" name="img_size_height" value="{$data->img_size_height}" />
+				<label>px % 등 단위까지 입력해주세요(미입력시 auto)</label>
+			</div>
+		</div>
+	</section>
+	<div class="btnArea x_clearfix">
+		<button type="submit" class="x_btn x_btn-primary x_pull-right">수정</button>
+	</div>
+</form>

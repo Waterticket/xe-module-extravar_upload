@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<actions>
+		<action name="dispExtravar_uploadAdminList" type="view" menu_name="extravar_upload" admin_index="true" />
+		<action name="dispExtravar_uploadAdminInsert" type="view" menu_name="extravar_upload"/>
+		<action name="dispExtravar_uploadAdminModify" type="view" menu_name="extravar_upload"/>
+		<action name="dispExtravar_uploadAdminFilesList" type="view" menu_name="extravar_upload"/>
+		<action name="procExtravar_uploadAdminInsert" type="controller" />
+		<action name="procExtravar_uploadAdminGetExtraKeys" type="controller" />
+		<action name="procExtravar_uploadAdminDelete" type="controller" />
+		<action name="procExtravar_uploadAdminModify" type="controller" />
+		<action name="procExtravar_uploadAdminDeleteFile" type="controller" />
+		<action name="insertFileExtraVar" type="controller" standalone="true" />
+		<action name="getFilesInfo" type="controller"/>
+		<action name="deleteFileExtraVar" type="controller"/>
+	</actions>
+	<menus>
+		<menu name="extravar_upload" type="all">
+			<title xml:lang="ko">확장변수업로드</title>
+		</menu>
+	</menus>
+</module>

@@ -1,0 +1,15 @@
+<table name="extravar_upload_reg_info">
+	<column name="extravar_srl" type="number" size="20" notnull="notnull" auto_increment="auto_increment" primary_key="primary_key" />
+	<column name="target_module_srl" type="text" notnull="notnull"/>
+	<column name="target_extra" type="text" notnull="notnull"/>
+	<column name="use" type="char" size="1" default="N" notnull="notnull" />
+	<column name="limit_count" type="number" size="11"/>
+	<column name="limit_size" type="number" size="11"/>
+	<column name="img_size_width" type="text"/>
+	<column name="img_size_height" type="text"/>
+	<column name="regdate" type="date" index="idx_regdate" />
+	<column name="last_update" type="date" index="idx_last_update" />
+	<column name="use_cover" type="char" size="1" default="N" />
+	<column name="cover_size_width" type="text"/>
+	<column name="cover_size_height" type="text"/>
+</table>

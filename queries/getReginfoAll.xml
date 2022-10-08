@@ -1,0 +1,14 @@
+<query id="getReginfoAll" action="select">
+    <tables>
+        <table name="extravar_upload_reg_info" />
+    </tables>
+    <columns>
+		<column name="*" />
+    </columns>
+    <navigation>
+        <index var="sort_index" default="target_module_srl" order="desc" />
+        <list_count var="list_count" default="20" />
+        <page_count var="page_count" default="10" />
+        <page var="page" default="1" />
+    </navigation>
+</query>

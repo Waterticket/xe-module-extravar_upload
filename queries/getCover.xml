@@ -1,0 +1,10 @@
+<query id="getCover" action="select">
+    <tables>
+        <table name="extravar_upload_files" />
+    </tables>
+    <conditions>
+        <condition operation="equal" column="upload_target_srl" var="upload_target_srl" filter="number" notnull="notnull" />
+		<condition operation="equal" column="target_extra" var="target_extra" notnull="notnull" pipe="and" />
+		<condition operation="equal" column="cover_extra" var="cover_extra" notnull="notnull" pipe="and" />
+    </conditions>
+</query>

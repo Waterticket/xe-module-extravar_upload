@@ -1,0 +1,19 @@
+<query id="updateReginfo" action="update">
+    <tables>
+        <table name="extravar_upload_reg_info" />
+    </tables>
+    <columns>
+        <column name="use" var="use" notnull="notnull" />
+        <column name="limit_count" var="limit_count" filter="number" null="null" default="null"/>
+        <column name="limit_size" var="limit_size" filter="number" null="null" default="null"/>
+		<column name="img_size_width" var="img_size_width" null="null" default="null"/>
+		<column name="img_size_height" var="img_size_height" null="null" default="null"/>
+		<column name="use_cover" var="use_cover" notnull="notnull" />
+		<column name="cover_size_width" var="cover_size_width" null="null" default="null"/>
+		<column name="cover_size_height" var="cover_size_height" null="null" default="null"/>
+        <column name="last_update" var="last_update" default="curdate()" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="extravar_srl" var="extravar_srl" filter="number" notnull="notnull" />
+    </conditions>
+</query>

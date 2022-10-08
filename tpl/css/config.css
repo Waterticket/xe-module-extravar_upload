@@ -1,0 +1,9 @@
+.section_h3{
+	border-bottom:1px dotted #e0e0e0;
+	border-left:0;
+}
+.desc{
+    width: 80%;
+    border: 1px solid #f33e3e;
+    padding: 10px;
+}

@@ -1,0 +1,75 @@
+.extra-file-control{
+	height: 30px;
+	margin-top: 10px;
+	text-align: right;
+}
+.extra-file-image-d{
+	border:1px solid #DDD;
+	margin-top:10px;
+}
+.extra-file-image{
+	width:60px;
+	height:60px;
+	position: relative;
+	display: inline-block;
+	margin: 3px;
+	border: 3px solid #DDD;
+	vertical-align: middle;
+}
+.extra-file-image input{
+	position: absolute;
+	top:0;
+	left:0;
+}
+.extra-file-image img{
+	width:100%;
+	height:100%;
+}
+.extra-file-image video{
+	width:100%;
+	height:100%;
+}
+
+.extra-file-binary-d{
+	border:1px solid #DDD;
+	margin-top:10px;
+	text-align: left;
+	padding:5px;
+}
+li.extra-file-binary{
+	margin-top:5px;
+	display:block;
+}
+li.extra-file-binary:first-child{
+	margin-top:0;
+}
+.extra-file-info{
+	float:right;
+}
+.extra-file-name{
+	text-align:left;
+}
+.extra-file-info span{
+	margin-right:10px;
+}
+.extra-file-size{
+	display:none;
+}
+.upload_limit{
+	margin-top:5px;
+}
+div.cover-extra{
+	cursor:pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background: #DDD;
+    border-radius: 12px;
+    color: black;
+    text-align: center;
+}
+div.cover-extra>i.xi-check{
+	vertical-align: text-top;
+}

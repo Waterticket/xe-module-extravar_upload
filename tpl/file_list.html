@@ -1,0 +1,133 @@
+<!--// HEADER -->
+<load target="css/config.css" />
+<include target="header.html" />
+
+<table class="x_table x_table-striped x_table-hover">
+	<caption>
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispExtravar_uploadAdminFilesList')}" class="active"|cond="$search_keyword == ''">{$lang->all}<block cond="$search_keyword == ''">({number_format($total_count)})</block></a>
+		<i>|</i>
+		<a href="{getUrl('search_target','isvalid','search_keyword','Y')}" class="active"|cond="$search_target == 'isvalid' && $search_keyword == 'Y'">{$lang->is_valid}<block cond="$search_target == 'isvalid' && $search_keyword == 'Y'">({number_format($total_count)})</block></a>
+		<i>|</i>
+		<a href="{getUrl('search_target','isvalid','search_keyword','N')}" class="active"|cond="$search_target == 'isvalid' && $search_keyword == 'N'">{$lang->is_stand_by}<block cond="$search_target == 'isvalid' && $search_keyword == 'N'">({number_format($total_count)})</block></a>
+		
+		<span class="x_pull-right"><input class="x_btn modalAnchor" onclick="delFileList();" type="button" style="float:right;margin:0 10px 15px 10px" value="{$lang->delete}" /></span>
+		<!-- <span class="x_pull-right"><a href="#listManager" class="x_btn modalAnchor" onclick="delFileList();">{$lang->delete}</a></span> -->
+	</caption>
+	<thead>
+		<tr>
+			<th scope="col">{$lang->file}</th>
+			<th scope="col" class="nowr">{$lang->file_size}</th>
+			<th scope="col" class="nowr">{$lang->author}</th>
+			<th scope="col" class="nowr">{$lang->date}</th>
+			<th scope="col" class="nowr">{$lang->ipaddress}</th>
+			<th scope="col" class="nowr">{$lang->status}</th>
+			<th scope="col"><input type="checkbox" data-name="cart" title="Check All" /></th>
+		</tr>
+	</thead>
+<tbody class="tbody_ep">
+	<!--@foreach($file_list as $no => $val)-->
+		<!-- one document start -->
+		<!--@if($val->upload_target_srl != $cur_upload_target_srl)-->
+			{@
+				$document_srl = $val->upload_target_srl;
+				$move_uri = getUrl('', 'document_srl', $document_srl);
+				$oDocumentModel = getModel('document');
+				$document = $oDocumentModel->getDocument($document_srl);
+
+				$title = $document->variables['title'];
+				$nick_name = $document->variables['nick_name'];
+				$member_srl = $document->variables['member_srl'];
+				$module_srl = $document->variables['module_srl'];
+				
+				$oModuleModel = &getModel('module');
+				$module_info = $oModuleModel->getModuleInfoByModuleSrl($module_srl);
+				$module_name = $module_info->mid;
+				$browser_title = $module_info->browser_title;			
+	
+				$cur_upload_target_srl = $val->upload_target_srl;
+			}
+	<tr>
+		<th colspan="8" scope="col">
+			<!--@if($val->isvalid=='Y')-->
+				<a href="{getUrl('', 'mid', $module_name)}" target="_blank">{$browser_title}</a>
+				<a href="{$move_uri}" target="_blank">{$title}</a>
+			<!--@else-->
+				{$lang->is_stand_by}
+			<!--@end-->
+		</th>
+	</tr>
+		<!--@endif-->
+		<!-- one document end -->
+	<tr>
+		<td>	<!--@if(preg_match("/\.(jpg|png|bmp|jpeg|gif)$/i",strtolower($val->source_filename)))-->
+			<img src="{$val->uploaded_filename}" style="width:50px; height:50px">
+			<!--@end-->
+			<a href="{htmlspecialchars_decode($val->uploaded_filename)}">{htmlspecialchars($val->source_filename, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}</a></td>
+		<td class="nowr">{FileHandler::filesize($val->file_size)}</td>
+		<td class="nowr">
+			<a href="#popup_menu_area" class="member_{$member_srl}">{$nick_name}</a>
+		</td>
+		<td class="nowr">{zdate($val->regdate,"Y-m-d H:i")}</td>
+		<td class="nowr"><a href="{getUrl('search_target','ipaddress','search_keyword',$val->ipaddress)}">{$val->ipaddress}</a></td>
+		<td class="nowr"><!--@if($val->isvalid=='Y')-->{$lang->is_valid}<!--@else-->{$lang->is_stand_by}<!--@end--></td>
+		<td>
+			<input type="checkbox" name="cart" value="{$val->file_srl}" />
+		</td>
+	</tr>
+	<!--@endforeach-->
+	<tr cond="!$file_list">
+		<td>{$lang->no_files}</td>
+	</tr>
+</tbody>
+</table>
+
+<div class="pagination a1">
+    <a href="{getUrl('page','','module_srl','')}" class="prevEnd">{$lang->first_page}</a> 
+    <!--@while($page_no = $page_navigation->getNextPage())-->
+        <!--@if($page == $page_no)-->
+            <strong>{$page_no}</strong> 
+        <!--@else-->
+            <a href="{getUrl('page',$page_no,'module_srl','')}">{$page_no}</a> 
+        <!--@end-->
+    <!--@end-->
+    <a href="{getUrl('page',$page_navigation->last_page,'module_srl','')}" class="nextEnd">{$lang->last_page}</a>
+</div>
+
+<form action="./" method="get" class="search center x_input-append">
+	<input type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="{$act}" />
+	<input type="hidden" name="module_srl" value="{$module_srl}" />
+	<input type="hidden" name="error_return_url" value="" />
+	<select name="search_target" title="{$lang->search_target}" style="margin-right:4px">
+		<option value="source_filename" <!--@if($search_target=='source_filename')-->selected="selected"<!--@end-->>파일이름</option>
+		<option value="isvalid" <!--@if($search_target=='isvalid')-->selected="selected"<!--@end-->>상태</option>
+	</select>
+	<input type="search" name="search_keyword" value="{htmlspecialchars($search_keyword, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
+	<button type="submit" class="x_btn x_btn-inverse">{$lang->cmd_search}</button>
+</form>
+
+<script>
+delFileList = function(){
+	if(jQuery("input[name=cart]:checked").length == 0){
+		alert('삭제할 항목을 선택해주세요');
+		return false;
+	}
+	if (confirm("정말 삭제하시겠습니까?") == true){
+		var params = {file_srl : new Array};
+		jQuery("input[name=cart]:checked").each(function() {
+			params.file_srl.push(jQuery(this).val());
+		});
+		exec_json('extravar_upload.procExtravar_uploadAdminDeleteFile',params,function(data) {
+			var message = data.message;
+			if(message != 'success') {
+				alert(message);
+				return false;
+			}else{
+				location.reload();
+				};
+		});
+	}else{
+		return false;
+	};
+}
+</script>

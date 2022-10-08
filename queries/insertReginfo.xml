@@ -1,0 +1,16 @@
+<query id="insertReginfo" action="insert">
+    <tables>
+        <table name="extravar_upload_reg_info" />
+    </tables>
+    <columns>
+        <column name="use" var="use" notnull="notnull" />
+		<column name="target_module_srl" var="target_module_srl" filter="number" notnull="notnull" />
+        <column name="target_extra" var="target_extra" filter="number" notnull="notnull" />
+        <column name="limit_count" var="limit_count" filter="number"/>
+        <column name="limit_size" var="limit_size" filter="number"/>
+		<column name="img_size_width" var="img_size_width" />
+		<column name="img_size_height" var="img_size_height" />
+        <column name="regdate" var="regdate" default="curdate()" />
+        <column name="last_update" var="last_update" default="curdate()" />
+    </columns>
+</query>
