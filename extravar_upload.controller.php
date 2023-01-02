@@ -3,10 +3,11 @@ class Extravar_uploadController extends Extravar_upload
 {
 	public function triggerBeforeDisplay(&$output)
 	{
-		if(Context::get('act') == 'dispBoardWrite')
+		if(Context::get('act') == 'dispBoardWrite' || Context::get('act') == 'dispHotosubmallProductCreate' || Context::get('act') == 'dispHotosubmallProductEdit')
 		{
 			$module_info = Context::get('module_info');
 			$module_srl = $module_info->module_srl;
+			if ($module_srl == 112) $module_srl = 135;
 
 			$args = new stdClass;
 			$args->target_module_srl = $module_srl;
@@ -120,8 +121,12 @@ class Extravar_uploadController extends Extravar_upload
 			$limit_string = '<div class="upload_limit">업로드 제한 : '.$limit_count.' 개 / '.$limit_size.'MB</div>';
 		}
 
+		if($target_extra == 2) $file_name = '이미지';
+		else $file_name = '파일'; 
+
 		$input = preg_replace('/<select/is', '$0 style="display:none;"', $input);
-		$input = $input[0].'<input id="Filedata_e" multiple="multiple" type="file" name="filename_e[]" name_srl="'.$target_extra.'" limit_count="'.$limit_count.'" limit_size="'.$limit_size.'"/>
+		$input = $input[0].'<div><input id="Filedata_e" class="Filedata_e" style="display:none;" multiple="multiple" type="file" name="filename_e[]" name_srl="'.$target_extra.'" limit_count="'.$limit_count.'" limit_size="'.$limit_size.'"/>
+		<a class="app-button file_upload_btn" style="width: 100%" href="javascript:void(0)" onclick="jQuery(this).closest(\'div\').find(\'.Filedata_e\').click()">'.$file_name.' 업로드</a></div>
 		'.$limit_string.'
 		<div style="display:none;" class="extra-file-image-d" name_srl="'.$target_extra.'"></div>
 		<div style="display:none;" class="extra-file-binary-d" name_srl="'.$target_extra.'"></div>

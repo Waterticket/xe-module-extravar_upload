@@ -141,10 +141,11 @@ jQuery(function(){
 		});
 	});
 	init_get_file();
+	fileDropDown();
 });
 
 function init_get_file(){
-	var document_srl = current_url.getQuery('document_srl');
+	var document_srl = jQuery('input[name=document_srl]').val(); //current_url.getQuery('document_srl');
 	if(document_srl > 0){
 		var Filedata = jQuery("input#Filedata_e");
 		jQuery.each(Filedata,function(){
@@ -189,4 +190,40 @@ function init_get_file(){
 			});
 		})
 	};
+}
+
+function fileDropDown() {
+	// var dropZone = $("#file_upload_btn");
+	
+	// dropZone.on('dragenter', function(e) {
+	// 	e.stopPropagation();
+	// 	e.preventDefault();
+	// 	dropZone.css('background-color', '#E3F2FC');
+	// });
+	// dropZone.on('dragleave', function(e) {
+	// 	e.stopPropagation();
+	// 	e.preventDefault();
+	// 	dropZone.css('background-color', '#FFFFFF');
+	// });
+	// dropZone.on('dragover', function(e) {
+	// 	e.stopPropagation();
+	// 	e.preventDefault();
+	// 	dropZone.css('background-color', '#E3F2FC');
+	// });
+	// dropZone.on('drop', function(e) {
+	// 	e.preventDefault();
+	// 	dropZone.css('background-color', '#FFFFFF');
+
+	// 	var files = e.originalEvent.dataTransfer.files;
+	// 	if (files != null) {
+	// 		if (files.length < 1) {
+	// 			alert("폴더는 업로드 할 수 없습니다.");
+	// 			return;
+	// 		} else {
+	// 			dropZone.closest('div').find('.Filedata_e').files = files;
+	// 		}
+	// 	} else {
+	// 		alert("ERROR");
+	// 	}
+	// });
 }
