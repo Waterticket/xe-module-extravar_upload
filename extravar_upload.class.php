@@ -10,6 +10,7 @@ class Extravar_upload extends ModuleObject
 		array('document.updateDocument', 'after', 'controller', 'triggerAfterUpdateDocument'),
 		array('document.deleteDocument', 'after', 'controller', 'triggerAfterDeleteDocument'),
 		array('document.getDocumentList', 'after', 'controller', 'triggerAfterGetDocumentList'),
+		array('document.getThumbnail', 'before', 'controller', 'triggerBeforeGetThumbnail'),
 	);
 	
 

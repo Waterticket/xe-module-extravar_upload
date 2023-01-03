@@ -8,6 +8,7 @@
     <conditions>
         <condition operation="equal" column="upload_target_srl" var="upload_target_srl" filter="number" />
         <condition operation="equal" column="isvalid" var="isvalid" pipe="and" />
+        <condition operation="equal" column="cover_extra" var="cover_extra" pipe="and" />
     </conditions>
     <navigation>
         <index var="sort_index" default="file_srl" order="order_type" />

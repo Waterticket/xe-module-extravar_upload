@@ -438,4 +438,16 @@ class Extravar_uploadController extends Extravar_upload
 			}
 		}
 	}
+
+	// 썸네일 생성
+	public function triggerBeforeGetThumbnail($obj)
+	{
+		$oExtravarUploadModel = Extravar_uploadModel::getInstance();
+		$cover_extra = $oExtravarUploadModel->getCoverImage($obj->document_srl);
+		if (!$cover_extra) return;
+
+		$source_file = $cover_extra->uploaded_filename;
+
+		return FileHandler::createImageFile($source_file, $obj->filename, $obj->width, $obj->height, $obj->image_type, $obj->type, $obj->quality);
+	}
 }
