@@ -145,8 +145,10 @@ class Extravar_uploadController extends Extravar_upload
 		$upload_target_srl = $obj->upload_target_srl;
 		if(!$upload_target_srl || $upload_target_srl == 0)
 		{
+			$upload_target_srl = getNextSequence();
+
 			$oFileController = FileController::getInstance();
-			$upload_target_srl = $oFileController->setUploadInfo(0);
+			$oFileController->setUploadInfo(0, $upload_target_srl);
 		}
 
 		$oModuleModel = &getModel('module');
